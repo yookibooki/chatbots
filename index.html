@@ -162,7 +162,7 @@
             chatbotData.forEach(bot => {
                 const iconUrl = `${baseIconUrl}${bot.slug}`;
                 cardsHtml += `
-                    <a href="${bot.url}" target="_blank" rel="noopener noreferrer" class="chatbot-card">
+                    <a href="${bot.url}" class="chatbot-card">
                         <img src="${iconUrl}" alt="${bot.name} Icon" class="icon" loading="lazy">
                         <span class="name">${bot.name}</span>
                     </a>
