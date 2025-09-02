@@ -26,57 +26,5 @@ img{width:70%}
 ["StepFun","https://stepfun.ai","stepfun-color.svg"],
 ["MS Copilot","https://copilot.microsoft.com","copilot-color.svg"],
 ["Lambda","https://lambda.chat","lambda.svg"]
-].forEach(([n,u,i])=>g.innerHTML+=`<a href="${u}" title="${n}"><img src="https://unpkg.com/@lobehub/icons-static-svg@latest/icons/${i}" alt="${n}"></a>`)
-</script>
-<script>
-if ('serviceWorker' in navigator) {
-  const swCode = `
-    const CACHE_NAME = 'ai-chatbot-launcher-cache-v1';
-    const urlsToCache = [
-      './offline.html',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/openai.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/aistudio-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/claude-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/kimi-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/mistral-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/deepseek-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/qwen-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/grok.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/zai.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/minimax-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/together-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/stepfun-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/copilot-color.svg',
-      'https://unpkg.com/@lobehub/icons-static-svg@latest/icons/lambda.svg'
-    ];
-
-    self.addEventListener('install', event => {
-      event.waitUntil(
-        caches.open(CACHE_NAME)
-          .then(cache => {
-            return cache.addAll(urlsToCache);
-          })
-      );
-    });
-
-    self.addEventListener('fetch', event => {
-      event.respondWith(
-        caches.match(event.request)
-          .then(response => {
-            return response || fetch(event.request);
-          })
-      );
-    });
-  `;
-  const swBlob = new Blob([swCode.trim()], { type: 'application/javascript' });
-  const swUrl = URL.createObjectURL(swBlob);
-
-  navigator.serviceWorker.register(swUrl)
-    .then(registration => {
-      console.log('Service Worker registered with scope:', registration.scope);
-    })
-    .catch(error => {
-      console.error('Service Worker registration failed:', error);
-    });
-}
+].forEach(([n,u,i])=>g.innerHTML+=`<a href="${u}" title="${n}"><img src="icons/${i}" alt="${n}"></a>`)
 </script>
