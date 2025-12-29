@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Chatbot Launcher</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#121212;font:14px/1 sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:24px;width:100%;max-width:900px;padding:32px}
+a{display:flex;justify-content:center;align-items:center;aspect-ratio:1;background:#1e1e1e;border-radius:20px;transition:transform .2s;text-decoration:none}
+a:hover{transform:scale(1.05)}
+img{width:70%}
+</style>
+<div class="g" id="g"></div>
+<script>
+[["ChatGPT","https://chatgpt.com","openai.svg"],
+["Gemini","https://aistudio.google.com","aistudio-color.svg"],
+["Claude","https://claude.ai","claude-color.svg"],
+["Kimi","https://kimi.com","kimi-color.svg"],
+["Mistral","https://chat.mistral.ai/chat","mistral-color.svg"],
+["DeepSeek","https://chat.deepseek.com","deepseek-color.svg"],
+["Qwen","https://chat.qwenlm.ai","qwen-color.svg"],
+["Grok","https://grok.com/chat","grok.svg"],
+["Zhipu","https://chat.z.ai","zai.svg"],
+["Minimax","https://chat.minimax.io","minimax-color.svg"],
+["Together AI","https://chat.together.ai","together-color.svg"],
+["StepFun","https://stepfun.ai","stepfun-color.svg"],
+["MS Copilot","https://copilot.microsoft.com","copilot-color.svg"],
+["Lambda","https://lambda.chat","lambda.svg"]
+].forEach(([n,u,i])=>g.innerHTML+=`<a href="${u}" title="${n}"><img src="icons/${i}" alt="${n}"></a>`)
+</script>
