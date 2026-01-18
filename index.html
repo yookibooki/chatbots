@@ -1,30 +1,115 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI Chatbot Launcher</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#121212;font:14px/1 sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh}
-.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:24px;width:100%;max-width:900px;padding:32px}
-a{display:flex;justify-content:center;align-items:center;aspect-ratio:1;background:#1e1e1e;border-radius:20px;transition:transform .2s;text-decoration:none}
-a:hover{transform:scale(1.05)}
-img{width:70%}
+  :root { --bg: #121212; --tile: #1e1e1e; --hover: #2a2a2a; --gap: 16px; --pad: 32px; }
+  * { box-sizing: border-box; }
+  body { 
+    margin: 0; background: var(--bg); height: 100vh; width: 100vw; overflow: hidden;
+    display: flex; justify-content: center; align-items: center; font-family: sans-serif;
+  }
+  #g { 
+    display: grid; 
+    gap: var(--gap);
+    grid-template-columns: repeat(var(--cols, 1), var(--size, 100px));
+    grid-template-rows: repeat(var(--rows, 1), var(--size, 100px));
+  }
+  a {
+    display: block; width: 100%; height: 100%;
+    background: var(--tile); border-radius: 16px;
+    padding: 15%; 
+    transition: transform 0.1s ease-out, background 0.1s;
+    will-change: transform;
+    outline: none;
+  }
+  a:hover, a:focus { transform: scale(1.05); background: var(--hover); z-index: 1; }
+  img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
 </style>
-<div class="g" id="g"></div>
+</head>
+<body>
+<div id="g"></div>
 <script>
-[["ChatGPT","https://chatgpt.com","openai.svg"],
-["Gemini","https://aistudio.google.com","aistudio-color.svg"],
-["Claude","https://claude.ai","claude-color.svg"],
-["Kimi","https://kimi.com","kimi-color.svg"],
-["Mistral","https://chat.mistral.ai/chat","mistral-color.svg"],
-["DeepSeek","https://chat.deepseek.com","deepseek-color.svg"],
-["Qwen","https://chat.qwenlm.ai","qwen-color.svg"],
-["Grok","https://grok.com/chat","grok.svg"],
-["Zhipu","https://chat.z.ai","zai.svg"],
-["Minimax","https://chat.minimax.io","minimax-color.svg"],
-["Together AI","https://chat.together.ai","together-color.svg"],
-["StepFun","https://stepfun.ai","stepfun-color.svg"],
-["MS Copilot","https://copilot.microsoft.com","copilot-color.svg"],
-["Lambda","https://lambda.chat","lambda.svg"]
-].forEach(([n,u,i])=>g.innerHTML+=`<a href="${u}" title="${n}"><img src="icons/${i}" alt="${n}"></a>`)
+const items=[
+  ["ChatGPT","https://chatgpt.com/","openai.svg"],
+  ["AI Studio","https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
+  ["Gemini","https://gemini.google.com/app","gemini-color.svg"],
+  ["Claude","https://claude.ai/new","claude-color.svg"],
+  ["OpenRouter","https://openrouter.ai/chat","openrouter.svg"],
+  ["MS Copilot","https://copilot.microsoft.com/","copilot-color.svg"],
+  ["GitHub Copilot","https://github.com/copilot","githubcopilot.svg"],
+  ["DeepSeek","https://chat.deepseek.com/","deepseek-color.svg"],
+  ["Mistral","https://chat.mistral.ai/","mistral-color.svg"],
+  ["Qwen","https://chat.qwen.ai/","qwen-color.svg"],
+  ["Zhipu","https://chat.z.ai/","zai.svg"],
+  ["Together AI","https://chat.together.ai/","together-color.svg"],
+  ["Kimi","https://www.kimi.com/","kimi-color.svg"],
+  ["Yuanbao","https://yuanbao.tencent.com/chat","yuanbao-color.svg"],
+  ["Doubao","https://www.doubao.com/chat/","doubao-color.svg"],
+  ["HuggingChat","https://huggingface.co/chat/","huggingface-color.svg"],
+  ["LM Arena","https://lmarena.ai/","lmarena.ico"],
+  ["Grok","https://grok.com/","grok.svg"],
+  ["Minimax","https://chat.minimax.io/","minimax-color.svg"],
+  ["StepFun","https://stepfun.ai/","stepfun-color.svg"],
+  ["Lambda","https://lambda.chat/","lambda.svg"]
+];
+
+const g = document.getElementById("g");
+const frag = document.createDocumentFragment();
+
+// Single pass DOM generation
+for (let i = 0, len = items.length; i < len; i++) {
+  const [n, u, img] = items[i];
+  const a = document.createElement("a");
+  a.href = u; a.title = n; a.target = "_blank"; a.rel = "noopener noreferrer";
+  const m = document.createElement("img");
+  m.src = "icons/" + img; m.alt = n;
+  a.appendChild(m);
+  frag.appendChild(a);
+}
+g.appendChild(frag);
+
+let tid;
+const count = items.length;
+const GAP = 16;
+const PAD = 32; // Total padding (16px * 2)
+
+function fit() {
+  const w = window.innerWidth - PAD;
+  const h = window.innerHeight - PAD;
+  
+  if (w <= 0 || h <= 0) return;
+
+  let maxS = 0, bestC = 1, bestR = count;
+
+  // O(N) search for optimal layout
+  for (let c = 1; c <= count; c++) {
+    const r = Math.ceil(count / c);
+    // (Size * Cols) + (Gap * (Cols - 1)) <= Width
+    const sW = (w - (c - 1) * GAP) / c;
+    const sH = (h - (r - 1) * GAP) / r;
+    const s = (sW < sH) ? sW : sH;
+    
+    if (s > maxS) {
+      maxS = s;
+      bestC = c;
+      bestR = r;
+    }
+  }
+
+  g.style.setProperty("--cols", bestC);
+  g.style.setProperty("--rows", bestR);
+  g.style.setProperty("--size", Math.floor(maxS) + "px");
+}
+
+window.addEventListener("resize", () => {
+  clearTimeout(tid);
+  tid = setTimeout(fit, 66);
+}, {passive: true});
+
+fit();
 </script>
+</body>
+</html>
