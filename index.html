@@ -1,114 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Chatbot Launcher</title>
+<title>Launcher</title>
 <style>
-  :root { --bg: #121212; --tile: #1e1e1e; --hover: #2a2a2a; --gap: 16px; --pad: 32px; }
+  :root { --bg:#121212; --tile:#1e1e1e; --gap:16px; --cols:1; --size:64px; }
   * { box-sizing: border-box; }
-  body { 
-    margin: 0; background: var(--bg); height: 100vh; width: 100vw; overflow: hidden;
-    display: flex; justify-content: center; align-items: center; font-family: sans-serif;
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
-  #g { 
-    display: grid; 
+  #g{
+    display: grid;
     gap: var(--gap);
-    grid-template-columns: repeat(var(--cols, 1), var(--size, 100px));
-    grid-template-rows: repeat(var(--rows, 1), var(--size, 100px));
+    grid-template-columns: repeat(var(--cols), var(--size));
+    grid-auto-rows: var(--size);
   }
-  a {
-    display: block; width: 100%; height: 100%;
-    background: var(--tile); border-radius: 16px;
-    padding: 15%; 
-    transition: transform 0.1s ease-out, background 0.1s;
-    will-change: transform;
-    outline: none;
+  a{
+    width: var(--size);
+    height: var(--size);
+    background: var(--tile);
+    border-radius: 16px;
+    padding: 15%;
+    display: grid;
+    place-items: center;
   }
-  a:hover, a:focus { transform: scale(1.05); background: var(--hover); z-index: 1; }
-  img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
 <div id="g"></div>
+
 <script>
-const items=[
-  ["ChatGPT","https://chatgpt.com/","openai.svg"],
-  ["AI Studio","https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
-  ["Gemini","https://gemini.google.com/app","gemini-color.svg"],
-  ["Claude","https://claude.ai/new","claude-color.svg"],
-  ["OpenRouter","https://openrouter.ai/chat","openrouter.svg"],
-  ["MS Copilot","https://copilot.microsoft.com/","copilot-color.svg"],
-  ["GitHub Copilot","https://github.com/copilot","githubcopilot.svg"],
-  ["DeepSeek","https://chat.deepseek.com/","deepseek-color.svg"],
-  ["Mistral","https://chat.mistral.ai/chat/","mistral-color.svg"],
-  ["Qwen","https://chat.qwen.ai/","qwen-color.svg"],
-  ["Zhipu","https://chat.z.ai/","zai.svg"],
-  ["Together AI","https://chat.together.ai/","together-color.svg"],
-  ["Kimi","https://www.kimi.com/","kimi-color.svg"],
-  ["Yuanbao","https://yuanbao.tencent.com/","yuanbao-color.svg"],
-  ["Doubao","https://www.doubao.com/chat/","doubao-color.svg"],
-  ["HuggingChat","https://huggingface.co/chat/","huggingface-color.svg"],
-  ["LM Arena","https://lmarena.ai/","lmarena.ico"],
-  ["Grok","https://grok.com/","grok.svg"],
-  ["Minimax","https://agent.minimax.io/","minimax-color.svg"],
-  ["StepFun","https://stepfun.ai/chat/new","stepfun-color.svg"],
-];
+(() => {
+  const items = [
+    ["ChatGPT","https://chatgpt.com/","openai.svg"],
+    ["AI Studio","https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
+    ["Gemini","https://gemini.google.com/app","gemini-color.svg"],
+    ["Claude","https://claude.ai/new","claude-color.svg"],
+    ["OpenRouter","https://openrouter.ai/chat","openrouter.svg"],
+    ["MS Copilot","https://copilot.microsoft.com/","copilot-color.svg"],
+    ["GitHub Copilot","https://github.com/copilot","githubcopilot.svg"],
+    ["DeepSeek","https://chat.deepseek.com/","deepseek-color.svg"],
+    ["Mistral","https://chat.mistral.ai/chat/","mistral-color.svg"],
+    ["Qwen","https://chat.qwen.ai/","qwen-color.svg"],
+    ["Zhipu","https://chat.z.ai/","zai.svg"],
+    ["Together AI","https://chat.together.ai/","together-color.svg"],
+    ["Kimi","https://www.kimi.com/","kimi-color.svg"],
+    ["Yuanbao","https://yuanbao.tencent.com/","yuanbao-color.svg"],
+    ["Doubao","https://www.doubao.com/chat/","doubao-color.svg"],
+    ["HuggingChat","https://huggingface.co/chat/","huggingface-color.svg"],
+    ["LM Arena","https://lmarena.ai/","lmarena.ico"],
+    ["Grok","https://grok.com/","grok.svg"],
+    ["Minimax","https://agent.minimax.io/","minimax-color.svg"],
+    ["StepFun","https://stepfun.ai/chat/new","stepfun-color.svg"],
+  ];
 
-const g = document.getElementById("g");
-const frag = document.createDocumentFragment();
+  const g = document.getElementById("g");
+  const N = items.length;
 
-// Single pass DOM generation
-for (let i = 0, len = items.length; i < len; i++) {
-  const [n, u, img] = items[i];
-  const a = document.createElement("a");
-  a.href = u; a.title = n; a.target = "_blank"; a.rel = "noopener noreferrer";
-  const m = document.createElement("img");
-  m.src = "icons/" + img; m.alt = n;
-  a.appendChild(m);
-  frag.appendChild(a);
-}
-g.appendChild(frag);
+  // Build DOM once.
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < N; i++) {
+    const [name, url, icon] = items[i];
+    const a = document.createElement("a");
+    a.href = url;
+    a.title = name;
 
-let tid;
-const count = items.length;
-const GAP = 16;
-const PAD = 32; // Total padding (16px * 2)
+    const img = document.createElement("img");
+    img.src = "icons/" + icon;
+    img.alt = name;
+    img.decoding = "async";
+    img.loading = "lazy";
 
-function fit() {
-  const w = window.innerWidth - PAD;
-  const h = window.innerHeight - PAD;
-  
-  if (w <= 0 || h <= 0) return;
+    a.appendChild(img);
+    frag.appendChild(a);
+  }
+  g.appendChild(frag);
 
-  let maxS = 0, bestC = 1, bestR = count;
+  const root = document.documentElement;
+  const getGap = () => {
+    const v = parseFloat(getComputedStyle(root).getPropertyValue("--gap"));
+    return Number.isFinite(v) ? v : 0;
+  };
 
-  // O(N) search for optimal layout
-  for (let c = 1; c <= count; c++) {
-    const r = Math.ceil(count / c);
-    // (Size * Cols) + (Gap * (Cols - 1)) <= Width
-    const sW = (w - (c - 1) * GAP) / c;
-    const sH = (h - (r - 1) * GAP) / r;
-    const s = (sW < sH) ? sW : sH;
-    
-    if (s > maxS) {
-      maxS = s;
-      bestC = c;
-      bestR = r;
+  let raf = 0;
+  let lastCols = 0, lastSize = 0;
+
+  function layout() {
+    raf = 0;
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    if (W <= 0 || H <= 0) return;
+
+    const gap = getGap();
+
+    let bestCols = 1;
+    let bestSize = 0;
+
+    // Brute force is fine at this N and runs only on resize.
+    for (let cols = 1; cols <= N; cols++) {
+      const rows = (N + cols - 1) / cols | 0; // floor((N+cols-1)/cols)
+      const availW = W - (cols - 1) * gap;
+      const availH = H - (rows - 1) * gap;
+      if (availW <= 0 || availH <= 0) continue;
+
+      const size = (Math.min(availW / cols, availH / rows) | 0);
+      if (size > bestSize) { bestSize = size; bestCols = cols; }
     }
+
+    if (bestCols === lastCols && bestSize === lastSize) return;
+    lastCols = bestCols; lastSize = bestSize;
+
+    g.style.setProperty("--cols", String(bestCols));
+    g.style.setProperty("--size", bestSize + "px");
   }
 
-  g.style.setProperty("--cols", bestC);
-  g.style.setProperty("--rows", bestR);
-  g.style.setProperty("--size", Math.floor(maxS) + "px");
-}
+  function schedule() {
+    if (!raf) raf = requestAnimationFrame(layout);
+  }
 
-window.addEventListener("resize", () => {
-  clearTimeout(tid);
-  tid = setTimeout(fit, 66);
-}, {passive: true});
-
-fit();
+  addEventListener("resize", schedule, { passive: true });
+  schedule();
+})();
 </script>
 </body>
 </html>
