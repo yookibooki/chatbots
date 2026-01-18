@@ -1,149 +1,51 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Launcher</title>
 <style>
-  :root{
-    --bg:#121212;
-    --tile:#1e1e1e;
-    --gap:16px;
-    --edge:16px;
-    --cols:1;
-    --size:64px;
-  }
-  *{ box-sizing:border-box; }
-  html,body{ height:100%; }
-  body{
-    margin:0;
-    padding:var(--edge);
-    background:var(--bg);
-    overflow:hidden;
-    display:grid;
-    place-items:center;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  }
-  #g{
-    display:grid;
-    gap:var(--gap);
-    grid-template-columns:repeat(var(--cols), var(--size));
-    grid-auto-rows:var(--size);
-  }
-  a{
-    width:var(--size);
-    height:var(--size);
-    background:var(--tile);
-    border-radius:16px;
-    padding:15%;
-    display:grid;
-    place-items:center;
-    outline:none;
-  }
-  img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-    display:block;
-    pointer-events:none;
-  }
+  body { background:#121212; margin:0; height:100vh; overflow:hidden; display:grid; place-items:center; }
+  div { display:grid; gap:16px; grid-template-columns:repeat(var(--c), var(--s)); }
+  a { width:var(--s); height:var(--s); background:#1e1e1e; border-radius:16px; display:grid; place-items:center; }
+  img { width:70%; height:70%; object-fit:contain; pointer-events:none; }
 </style>
-</head>
-<body>
+
 <div id="g"></div>
 
 <script>
-(() => {
-  const items = [
-    ["ChatGPT","https://chatgpt.com/","openai.svg"],
-    ["AI Studio","https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
-    ["Gemini","https://gemini.google.com/app","gemini-color.svg"],
-    ["Claude","https://claude.ai/new","claude-color.svg"],
-    ["OpenRouter","https://openrouter.ai/chat","openrouter.svg"],
-    ["MS Copilot","https://copilot.microsoft.com/","copilot-color.svg"],
-    ["GitHub Copilot","https://github.com/copilot","githubcopilot.svg"],
-    ["DeepSeek","https://chat.deepseek.com/","deepseek-color.svg"],
-    ["Mistral","https://chat.mistral.ai/chat/","mistral-color.svg"],
-    ["Qwen","https://chat.qwen.ai/","qwen-color.svg"],
-    ["Zhipu","https://chat.z.ai/","zai.svg"],
-    ["Together AI","https://chat.together.ai/","together-color.svg"],
-    ["Kimi","https://www.kimi.com/","kimi-color.svg"],
-    ["Yuanbao","https://yuanbao.tencent.com/","yuanbao-color.svg"],
-    ["Doubao","https://www.doubao.com/chat/","doubao-color.svg"],
-    ["HuggingChat","https://huggingface.co/chat/","huggingface-color.svg"],
-    ["LM Arena","https://lmarena.ai/","lmarena.ico"],
-    ["Grok","https://grok.com/","grok.svg"],
-    ["Minimax","https://agent.minimax.io/","minimax-color.svg"],
-    ["StepFun","https://stepfun.ai/chat/new","stepfun-color.svg"],
-  ];
+const d = [
+  ["https://chatgpt.com/","openai.svg"],
+  ["https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
+  ["https://gemini.google.com/app","gemini-color.svg"],
+  ["https://claude.ai/new","claude-color.svg"],
+  ["https://openrouter.ai/chat","openrouter.svg"],
+  ["https://copilot.microsoft.com/","copilot-color.svg"],
+  ["https://github.com/copilot","githubcopilot.svg"],
+  ["https://chat.deepseek.com/","deepseek-color.svg"],
+  ["https://chat.mistral.ai/chat/","mistral-color.svg"],
+  ["https://chat.qwen.ai/","qwen-color.svg"],
+  ["https://chat.z.ai/","zai.svg"],
+  ["https://chat.together.ai/","together-color.svg"],
+  ["https://www.kimi.com/","kimi-color.svg"],
+  ["https://yuanbao.tencent.com/","yuanbao-color.svg"],
+  ["https://www.doubao.com/chat/","doubao-color.svg"],
+  ["https://huggingface.co/chat/","huggingface-color.svg"],
+  ["https://lmarena.ai/","lmarena.ico"],
+  ["https://grok.com/","grok.svg"],
+  ["https://agent.minimax.io/","minimax-color.svg"],
+  ["https://stepfun.ai/chat/new","stepfun-color.svg"]
+];
 
-  const g = document.getElementById("g");
-  const N = items.length;
+const g = document.getElementById("g");
+g.innerHTML = d.map(x => `<a href="${x[0]}"><img src="icons/${x[1]}"></a>`).join("");
 
-  const frag = document.createDocumentFragment();
-  for (let i = 0; i < N; i++) {
-    const [name, url, icon] = items[i];
-    const a = document.createElement("a");
-    a.href = url;
-    a.title = name;
+const N = d.length;
+const W = innerWidth - 32;
+const H = innerHeight - 32;
+let max = 0, col = 1;
 
-    const img = document.createElement("img");
-    img.src = "icons/" + icon;
-    img.alt = name;
-    img.decoding = "async";
-    img.loading = "lazy";
+for (let c = 1; c <= N; c++) {
+  const r = Math.ceil(N / c);
+  const s = Math.min((W - (c - 1) * 16) / c, (H - (r - 1) * 16) / r);
+  if (s > max) { max = s; col = c; }
+}
 
-    a.appendChild(img);
-    frag.appendChild(a);
-  }
-  g.appendChild(frag);
-
-  const root = document.documentElement;
-  const cssNum = (prop) => {
-    const v = parseFloat(getComputedStyle(root).getPropertyValue(prop));
-    return Number.isFinite(v) ? v : 0;
-  };
-
-  let raf = 0;
-  let lastCols = 0, lastSize = 0;
-
-  function layout() {
-    raf = 0;
-
-    const gap = cssNum("--gap");
-    const edge = cssNum("--edge");
-
-    const W = window.innerWidth  - 2 * edge;
-    const H = window.innerHeight - 2 * edge;
-    if (W <= 0 || H <= 0) return;
-
-    let bestCols = 1;
-    let bestSize = 0;
-
-    for (let cols = 1; cols <= N; cols++) {
-      const rows = Math.ceil(N / cols);
-      const availW = W - (cols - 1) * gap;
-      const availH = H - (rows - 1) * gap;
-      if (availW <= 0 || availH <= 0) continue;
-
-      const size = Math.floor(Math.min(availW / cols, availH / rows));
-      if (size > bestSize) { bestSize = size; bestCols = cols; }
-    }
-
-    if (bestCols === lastCols && bestSize === lastSize) return;
-    lastCols = bestCols; lastSize = bestSize;
-
-    g.style.setProperty("--cols", String(bestCols));
-    g.style.setProperty("--size", bestSize + "px");
-  }
-
-  function schedule() {
-    if (!raf) raf = requestAnimationFrame(layout);
-  }
-
-  addEventListener("resize", schedule, { passive: true });
-  schedule();
-})();
+g.style = `--c:${col};--s:${max|0}px`;
 </script>
-</body>
-</html>
