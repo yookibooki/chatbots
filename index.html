@@ -1,54 +1,81 @@
 <!doctype html>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  body { background:#121212; margin:0; height:100vh; overflow:hidden; display:grid; place-items:center; }
-  div { display:grid; gap:16px; grid-template-columns:repeat(var(--c), var(--s)); }
-  a { width:var(--s); height:var(--s); background:#1e1e1e; border-radius:16px; display:grid; place-items:center; }
-  img { width:70%; height:70%; object-fit:contain; pointer-events:none; }
+  body {
+    background: #121212;
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+  }
+
+  div {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(var(--c), var(--s));
+  }
+
+  a {
+    width: var(--s);
+    height: var(--s);
+    background: #1e1e1e;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+  }
+
+  img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    pointer-events: none;
+  }
 </style>
 
 <div id="g"></div>
 
 <script>
-const d = [
-  // Sorted by your rating list (best -> worst) for entries we have.
-  ["https://chatgpt.com/","openai.svg"],
-  ["https://claude.ai/new","claude-color.svg"],
-  ["https://aistudio.google.com/prompts/new_chat","aistudio-color.svg"],
-  ["https://gemini.google.com/app","gemini-color.svg"],
-  ["https://chat.z.ai/","zai.svg"],
-  ["https://grok.com/","grok.svg"],
-  ["https://chat.deepseek.com/","deepseek-color.svg"],
-  ["https://www.kimi.com/","kimi-color.svg"],
-  ["https://agent.minimax.io/","minimax-color.svg"],
-  ["https://chat.mistral.ai/chat/","mistral-color.svg"],
+  const d = [
+    // Sorted by your rating list (best -> worst) for entries we have.
+    ["https://chatgpt.com/", "openai.svg"],
+    ["https://claude.ai/new", "claude-color.svg"],
+    ["https://aistudio.google.com/prompts/new_chat", "aistudio-color.svg"],
+    ["https://gemini.google.com/app", "gemini-color.svg"],
+    ["https://chat.z.ai/", "zai.svg"],
+    ["https://grok.com/", "grok.svg"],
+    ["https://chat.deepseek.com/", "deepseek-color.svg"],
+    ["https://www.kimi.com/", "kimi-color.svg"],
+    ["https://agent.minimax.io/", "minimax-color.svg"],
+    ["https://chat.mistral.ai/chat/", "mistral-color.svg"],
+    ["https://openrouter.ai/chat", "openrouter.svg"],
+    ["https://copilot.microsoft.com/", "copilot-color.svg"],
+    ["https://github.com/copilot", "githubcopilot.svg"],
+    ["https://chat.qwen.ai/", "qwen-color.svg"],
+    ["https://chat.together.ai/", "together-color.svg"],
+    ["https://yuanbao.tencent.com/", "yuanbao-color.svg"],
+    ["https://www.doubao.com/chat/", "doubao-color.svg"],
+    ["https://huggingface.co/chat/", "huggingface-color.svg"],
+    ["https://lmarena.ai/?mode=direct", "lmarena.ico"],
+    ["https://stepfun.ai/chat/new", "stepfun-color.svg"],
+    ["https://ernie.baidu.com/", "baidu-color.svg"],
+    ["https://aistudio.xiaomimimo.com/", "xiaomimimo.svg"],
+    ["https://longcat.chat/", "longcat-color.svg"]
+  ];
 
-  // Remaining (not in the rating list) keep after.
-  ["https://openrouter.ai/chat","openrouter.svg"],
-  ["https://copilot.microsoft.com/","copilot-color.svg"],
-  ["https://github.com/copilot","githubcopilot.svg"],
-  ["https://chat.qwen.ai/","qwen-color.svg"],
-  ["https://chat.together.ai/","together-color.svg"],
-  ["https://yuanbao.tencent.com/","yuanbao-color.svg"],
-  ["https://www.doubao.com/chat/","doubao-color.svg"],
-  ["https://huggingface.co/chat/","huggingface-color.svg"],
-  ["https://lmarena.ai/","lmarena.ico"],
-  ["https://stepfun.ai/chat/new","stepfun-color.svg"]
-];
+  const g = document.getElementById("g");
+  g.innerHTML = d.map(x => `<a href="${x[0]}"><img src="icons/${x[1]}"></a>`).join("");
 
-const g = document.getElementById("g");
-g.innerHTML = d.map(x => `<a href="${x[0]}"><img src="icons/${x[1]}"></a>`).join("");
+  const N = d.length;
+  const W = innerWidth - 32;
+  const H = innerHeight - 32;
+  let max = 0, col = 1;
 
-const N = d.length;
-const W = innerWidth - 32;
-const H = innerHeight - 32;
-let max = 0, col = 1;
+  for (let c = 1; c <= N; c++) {
+    const r = Math.ceil(N / c);
+    const s = Math.min((W - (c - 1) * 16) / c, (H - (r - 1) * 16) / r);
+    if (s > max) {max = s; col = c;}
+  }
 
-for (let c = 1; c <= N; c++) {
-  const r = Math.ceil(N / c);
-  const s = Math.min((W - (c - 1) * 16) / c, (H - (r - 1) * 16) / r);
-  if (s > max) { max = s; col = c; }
-}
-
-g.style = `--c:${col};--s:${max|0}px`;
+  g.style = `--c:${col};--s:${max | 0}px`;
 </script>
