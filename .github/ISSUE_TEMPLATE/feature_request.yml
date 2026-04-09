@@ -5,18 +5,6 @@ body:
   - type: markdown
     attributes:
       value: Thanks for the idea. Please describe it clearly so we can decide if it fits the homepage.
-  - type: textarea
-    id: idea
-    attributes:
-      label: What would you like to see?
-    validations:
-      required: true
-  - type: textarea
-    id: rationale
-    attributes:
-      label: Why would this help?
-    validations:
-      required: true
   - type: dropdown
     id: scope
     attributes:
@@ -25,4 +13,26 @@ body:
         - New tile
         - Icon update
         - Layout change
+        - Copy update
         - Other
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+      placeholder: Add a tile for ...
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why would this help?
+      placeholder: Explain the collaboration or usability benefit.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Suggested link or icon source
+      placeholder: URL or asset path

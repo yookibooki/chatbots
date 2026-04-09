@@ -6,32 +6,43 @@ body:
     attributes:
       value: Thanks for taking the time to report a problem.
   - type: input
-    id: page
+    id: affected_tile
     attributes:
       label: Affected link or tile
       placeholder: https://...
     validations:
       required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      placeholder: Chrome, Safari, Firefox, Edge...
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: macOS, Windows, Linux...
+    validations:
+      required: false
   - type: textarea
     id: details
     attributes:
       label: What happened?
-      description: Describe what you saw.
+      description: Describe the problem and where you saw it.
+      placeholder: The tile opens a 404 page.
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
       label: What did you expect?
+      placeholder: The tile should open the correct service.
     validations:
       required: true
-  - type: dropdown
-    id: browser
+  - type: textarea
+    id: screenshots
     attributes:
-      label: Browser
-      options:
-        - Chrome
-        - Safari
-        - Firefox
-        - Edge
-        - Other
+      label: Screenshots or notes
+      description: Add a screenshot or any extra context.
