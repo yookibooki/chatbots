@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a new tile, icon, or layout improvement
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the idea. Please describe it clearly so we can decide if it fits the homepage.
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to see?
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why would this help?
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New tile
+        - Icon update
+        - Layout change
+        - Other
