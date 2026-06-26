@@ -1,82 +1,135 @@
 <!doctype html>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<style>
-  body {
-    background: #121212;
-    margin: 0;
-    height: 100vh;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-  }
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+            body {
+                background: #121212;
+                margin: 0;
+                height: 100vh;
+                overflow: hidden;
+                display: grid;
+                place-items: center;
+                padding: 16px;
+                box-sizing: border-box;
+            }
 
-  div {
-    display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(var(--c), var(--s));
-  }
+            #g {
+                display: grid;
+                gap: 16px;
+                grid-template-columns: repeat(var(--c, 1), var(--s, 0px));
+                justify-content: center;
+                align-content: center;
+                width: 100%;
+                height: 100%;
+            }
 
-  a {
-    width: var(--s);
-    height: var(--s);
-    background: #1e1e1e;
-    border-radius: 16px;
-    display: grid;
-    place-items: center;
-  }
+            a {
+                width: var(--s);
+                height: var(--s);
+                background: #1e1e1e;
+                border-radius: 16px;
+                display: grid;
+                place-items: center;
+                transition:
+                    transform 0.2s,
+                    background 0.2s;
+            }
 
-  img {
-    width: 70%;
-    height: 70%;
-    object-fit: contain;
-    pointer-events: none;
-  }
-</style>
+            a:hover {
+                background: #252525;
+                transform: scale(1.05);
+            }
 
-<div id="g"></div>
+            img {
+                width: 65%;
+                height: 65%;
+                object-fit: contain;
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="g"></div>
 
-<script>
-  const d = [
-    ["https://gemini.google.com/app", "gemini-color.svg"],
-    ["https://aistudio.google.com/prompts/new_chat", "aistudio-color.svg"],
-    ["https://chat.qwen.ai/", "qwen-color.svg"],
-    ["https://agent.minimax.io/", "minimax-color.svg"],
-    ["https://www.kimi.com/", "kimi-color.svg"],
-    ["https://aistudio.xiaomimimo.com/#/c", "xiaomimimo.svg"],
-    ["https://www.meta.ai", "meta-color.svg"],
-    ["https://claude.ai/new", "claude-color.svg"],
-    ["https://chat.together.ai/", "together-color.svg"],
-    ["https://chat.deepseek.com/", "deepseek-color.svg"],
-    ["https://chat.z.ai/", "zai.svg"],
-    ["https://chatgpt.com/", "openai.svg"],
-    ["https://grok.com/", "grok.svg"],
-    ["https://arena.ai/text/direct", "arena.svg"],
-    ["https://stepfun.ai/chats/new", "stepfun-color.svg"],
-    ["https://copilot.microsoft.com/", "copilot-color.svg"],
-    ["https://chat.mistral.ai/chat/", "mistral-color.svg"],
-    ["https://ernie.baidu.com", "baidu-color.svg"],
-    ["https://www.apodex.ai", "apodex.svg"],
-  ];
+        <script>
+            const d = [
+                ["https://gemini.google.com/app", "gemini-color.svg"],
+                [
+                    "https://aistudio.google.com/prompts/new_chat",
+                    "aistudio-color.svg",
+                ],
+                ["https://chat.qwen.ai", "qwen-color.svg"],
+                ["https://agent.minimax.io", "minimax-color.svg"],
+                ["https://www.kimi.com", "kimi-color.svg"],
+                ["https://chat.z.ai", "zai.svg"],
+                ["https://www.meta.ai", "meta-color.svg"],
+                ["https://claude.ai/new", "claude-color.svg"],
+                ["https://chat.together.ai", "together-color.svg"],
+                ["https://chat.deepseek.com", "deepseek-color.svg"],
+                ["https://chatgpt.com", "openai.svg"],
+                ["https://grok.com", "grok.svg"],
+                ["https://arena.ai/text/direct", "arena.svg"],
+                ["https://chat.mistral.ai/chat", "mistral-color.svg"],
+                ["https://www.apodex.ai", "apodex.svg"],
+            ];
 
-  const g = document.getElementById("g");
-  g.innerHTML = d
-    .map((x) => `<a href="${x[0]}"><img src="icons/${x[1]}"></a>`)
-    .join("");
+            const g = document.getElementById("g");
+            const N = d.length;
+            const GAP = 16;
 
-  const N = d.length;
-  const W = innerWidth - 32;
-  const H = innerHeight - 32;
-  let max = 0,
-    col = 1;
+            // Batch DOM construction
+            const frag = document.createDocumentFragment();
+            d.forEach(([url, icon]) => {
+                const a = document.createElement("a");
+                a.href = url;
+                const img = document.createElement("img");
+                img.src = `icons/${icon}`;
+                a.appendChild(img);
+                frag.appendChild(a);
+            });
+            g.appendChild(frag);
 
-  for (let c = 1; c <= N; c++) {
-    const r = Math.ceil(N / c);
-    const s = Math.min((W - (c - 1) * 16) / c, (H - (r - 1) * 16) / r);
-    if (s > max) {
-      max = s;
-      col = c;
-    }
-  }
+            // Highly optimized mathematical layout engine
+            function recalculateLayout(entries) {
+                for (let entry of entries) {
+                    // Get exact content bounds from the observer entry
+                    const { width: W, height: H } = entry.contentRect;
 
-  g.style = `--c:${col};--s:${max | 0}px`;
-</script>
+                    let maxSquareSize = 0;
+                    let optimalColumns = 1;
+
+                    // O(N) loop to compute the ideal column/row packing distribution
+                    for (let c = 1; c <= N; c++) {
+                        const r = Math.ceil(N / c);
+
+                        // Available space minus cumulative item gaps
+                        const maxItemWidth = (W - (c - 1) * GAP) / c;
+                        const maxItemHeight = (H - (r - 1) * GAP) / r;
+
+                        const size = Math.min(maxItemWidth, maxItemHeight);
+
+                        if (size > maxSquareSize) {
+                            maxSquareSize = size;
+                            optimalColumns = c;
+                        }
+                    }
+
+                    // Microtask scheduling to prevent layout thrashing or "ResizeObserver loop limit exceeded" warnings
+                    requestAnimationFrame(() => {
+                        g.style.setProperty("--c", optimalColumns);
+                        g.style.setProperty(
+                            "--s",
+                            `${Math.floor(maxSquareSize)}px`,
+                        );
+                    });
+                }
+            }
+
+            // Use ResizeObserver for hardware-accelerated event monitoring instead of heavy global window listeners
+            const ro = new ResizeObserver(recalculateLayout);
+            ro.observe(g);
+        </script>
+    </body>
+</html>
