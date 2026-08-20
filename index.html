@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+    * {
+        box-sizing: border-box
+    }
+
+    body {
+        margin: 0;
+        height: 100dvh;
+        display: grid;
+        gap: clamp(8px, 1.2vw, 16px);
+        background: #121212;
+        place-content: center;
+        padding: clamp(8px, 1.2vw, 16px)
+    }
+
+    a {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        background: #1e1e1e;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        padding: 8%
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain
+    }
+
+    a::before {
+        content: attr(data-score);
+        position: absolute;
+        top: 7%;
+        left: 7%;
+        color: rgba(255, 255, 255, .85);
+        font: 600 clamp(11px, 2vmin, 17px)/1.4 system-ui, sans-serif
+    }
+</style>
+<a href="https://chat.together.ai" data-score="60"><img src="icons/together-color.svg"></a>
+<a href="https://chat.qwen.ai" data-score="58"><img src="icons/qwen-color.svg"></a>
+<a href="https://www.meta.ai" data-score="57"><img src="icons/meta-color.svg"></a>
+<a href="https://gemini.google.com/app" data-score="56"><img src="icons/gemini-color.svg"></a>
+<a href="https://claude.ai/new" data-score="55"><img src="icons/claude-color.svg"></a>
+<a href="https://chat.z.ai" data-score="53"><img src="icons/zai.svg"></a>
+<a href="https://chat.deepseek.com" data-score="52"><img src="icons/deepseek-color.svg"></a>
+<a href="https://chatgpt.com" data-score="47"><img src="icons/openai.svg"></a>
+<a href="https://agent.minimax.io" data-score="45"><img src="icons/minimax-color.svg"></a>
+<a href="https://chat.motiftech.io/chat" data-score="45"><img src="icons/motif-color.svg"></a>
+<a href="https://www.kimi.ai" data-score="45"><img src="icons/kimi-color.svg"></a>
+<a href="https://aistudio.tencent.ai" data-score="42"><img src="icons/tencent-color.svg"></a>
+<script>
+    const fit = () => {
+        const n = document.querySelectorAll("a"), s = getComputedStyle(document.body), g = parseFloat(s.gap), w = document.body.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight), h = innerHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
+        let columns = 1, size = 0;
+        for (let c = 1; c <= n.length; c++) {const rows = Math.ceil(n.length / c), next = Math.min((w - g * (c - 1)) / c, (h - g * (rows - 1)) / rows); if (next > size || Math.abs(next - size) < .01 && c > columns) {columns = c; size = next}}
+        document.body.style.gridTemplateColumns = `repeat(${columns},${size}px)`;
+        document.body.style.gridAutoRows = `${size}px`;
+    };
+    new MutationObserver(fit).observe(document.body, {childList: true});
+    addEventListener("resize", fit);
+    fit();
+</script>
