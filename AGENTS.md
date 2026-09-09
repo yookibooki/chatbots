@@ -1,8 +1,10 @@
 # Hard Requirements
+- autoscale: grid fits viewport, no scroll, scales both
+- square: cards square, recalc on resize/add/remove
+- gap: identical both, not affected by content/logo
+- logo: contain, centered both, scales w/ card, no overflow/stretch, doesn't size card
+- dynamic: add/remove auto-fits, no hardcoded count/cols
+- coverage: max area use while keeping square gap centered noscroll
 
-- **Autoscaling:** The layout MUST adapt to the viewport width and height. Grid cards MUST scale horizontally and vertically so the complete grid always fits inside the visible screen without horizontal or vertical scrolling.
-- **Square grids:** Every grid card MUST remain a perfect square. The card size MUST be recalculated when the viewport changes or when sites are added or removed.
-- **Uniform spacing:** The margin/gap between every grid card MUST be identical horizontally and vertically. No card may introduce extra spacing because of its content or intrinsic logo dimensions.
-- **Logo sizing:** Each logo MUST scale proportionally with its card, remain fully visible, and stay centered both horizontally and vertically. Logos MUST NOT overflow, stretch, or determine the card size.
-- **Dynamic site count:** Adding or removing a site MUST trigger the same fitting behavior automatically. Do not hard-code the current number of sites or a viewport-specific column count.
-- **Viewport coverage:** The grid MUST use the available screen area efficiently while preserving square cards, uniform gaps, centered logos, and zero overflow.
+# Mapping
+chatgpt.com:GPT-5.6 Luna,claude.ai:Claude Sonnet 5,meta.ai:Muse Spark 1.3,chat.together.ai:Kimi K3,kimi.ai:K2.6,chat.z.ai:GLM-5.3,gemini.google.com:Gemini 3.6 Flash,chat.qwen.ai:Qwen3.8 Max,aistudio.tencent.ai:Hy4 preview,chat.deepseek.com:DeepSeek V4 Pro 0813,chat.motiftech.io:Motif 3,agent.minimax.io:MiniMax-M3
