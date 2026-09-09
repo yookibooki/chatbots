@@ -1,6 +1,6 @@
 # Pass Criteria
 
-| crit | requirement | pass when |
+| criterion | requirement | pass when |
 |---|---|---|
 | autoscale | grid adapts to viewport | all cards visible at any viewport size, zero scroll h or v, updates live on resize |
 | square | cards square | aspect 1:1 (±1px) at all times, incl. immediately after add/remove/resize |
