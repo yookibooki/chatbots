@@ -18,44 +18,71 @@
 
     a {
         position: relative;
+        text-decoration: none;
         width: 100%;
         height: 100%;
         min-width: 0;
         min-height: 0;
         background: #1e1e1e;
         border-radius: 16px;
-        display: grid;
-        place-items: center;
-        padding: 8%
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8% 8% 16% 8%;
+        overflow: hidden;
     }
 
     img {
         width: 100%;
         height: 100%;
-        object-fit: contain
+        min-width: 0;
+        min-height: 0;
+        object-fit: contain;
+        z-index: 1;
     }
 
     a::before {
         content: attr(data-score);
         position: absolute;
-        top: 7%;
-        left: 7%;
-        color: rgba(255, 255, 255, .85);
-        font: 600 clamp(11px, 2vmin, 17px)/1.4 system-ui, sans-serif
+        top: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        color: #ffffff;
+        padding: 6px 10px;
+        border-top-left-radius: 16px;
+        border-bottom-right-radius: 8px;
+        font: 600 clamp(10px, 1.8vmin, 14px)/1 system-ui, sans-serif;
+        z-index: 2;
+    }
+
+    a::after {
+        content: attr(data-model);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        color: #ffffff;
+        padding: 6px 10px;
+        border-bottom-right-radius: 16px;
+        border-top-left-radius: 8px;
+        font: 600 clamp(10px, 1.8vmin, 14px)/1 system-ui, sans-serif;
+        z-index: 2;
     }
 </style>
-<a href="https://www.meta.ai" data-score="48"><img src="icons/meta-color.svg"></a>
-<a href="https://chat.z.ai" data-score="45"><img src="icons/zai.svg"></a>
-<a href="https://chat.together.ai" data-score="44"><img src="icons/together-color.svg"></a>
-<a href="https://aistudio.tencent.ai" data-score="43"><img src="icons/tencent-color.svg"></a>
-<a href="https://chat.qwen.ai" data-score="40"><img src="icons/qwen-color.svg"></a>
-<a href="https://claude.ai/new" data-score="38"><img src="icons/claude-color.svg"></a>
-<a href="https://chatgpt.com" data-score="38"><img src="icons/openai.svg"></a>
-<a href="https://chat.deepseek.com" data-score="36"><img src="icons/deepseek-color.svg"></a>
-<a href="https://gemini.google.com/app" data-score="34"><img src="icons/gemini-color.svg"></a>
-<a href="https://chat.motiftech.io/chat" data-score="34"><img src="icons/motif-color.svg"></a>
-<a href="https://www.kimi.ai" data-score="31"><img src="icons/kimi-color.svg"></a>
-<a href="https://agent.minimax.io" data-score="30"><img src="icons/minimax-color.svg"></a>
+<a href="https://www.meta.ai" data-score="48" data-model="Muse Spark 1.3"><img src="icons/meta-color.svg"></a>
+<a href="https://chat.z.ai" data-score="45" data-model="GLM-5.3"><img src="icons/zai.svg"></a>
+<a href="https://chat.together.ai" data-score="44" data-model="Kimi K3"><img src="icons/together-color.svg"></a>
+<a href="https://aistudio.tencent.ai" data-score="43" data-model="Hy4 preview"><img src="icons/tencent-color.svg"></a>
+<a href="https://chat.qwen.ai" data-score="40" data-model="Qwen3.8 Max"><img src="icons/qwen-color.svg"></a>
+<a href="https://claude.ai/new" data-score="38" data-model="Claude Sonnet 5"><img src="icons/claude-color.svg"></a>
+<a href="https://chatgpt.com" data-score="38" data-model="GPT-5.6 Luna"><img src="icons/openai.svg"></a>
+<a href="https://chat.deepseek.com" data-score="36" data-model="DeepSeek V4 Pro 0813"><img src="icons/deepseek-color.svg"></a>
+<a href="https://gemini.google.com/app" data-score="34" data-model="Gemini 3.6 Flash"><img src="icons/gemini-color.svg"></a>
+<a href="https://chat.motiftech.io/chat" data-score="34" data-model="Motif 3"><img src="icons/motif-color.svg"></a>
+<a href="https://www.kimi.ai" data-score="31" data-model="K2.6"><img src="icons/kimi-color.svg"></a>
+<a href="https://agent.minimax.io" data-score="30" data-model="MiniMax-M3"><img src="icons/minimax-color.svg"></a>
 <script>
     const fit = () => {
         const n = document.querySelectorAll("a"), s = getComputedStyle(document.body), g = parseFloat(s.gap), w = document.body.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight), h = innerHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
