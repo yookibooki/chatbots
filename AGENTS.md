@@ -26,6 +26,6 @@
 | gemini.google.com | Gemini 3.6 Flash |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
-| chat.deepseek.com | DeepSeek V4 Pro 0813 |
+| chat.deepseek.com | DeepSeek V4.1 Flash |
 | chat.motiftech.io | Motif 3 |
 | agent.minimax.io | MiniMax-M3 |
