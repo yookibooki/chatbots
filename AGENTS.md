@@ -18,8 +18,8 @@
 | website | best model |
 |---|---|
 | chatgpt.com | GPT-6 Luna |
-| claude.ai | Claude Sonnet 5.5 |
-| meta.ai | Muse Spark 1.3 |
+| claude.ai | Sonnet 5.5 |
+| meta.ai | Muse Spark 1.1 |
 | chat.together.ai | Kimi K3 |
 | kimi.ai | K2.6 |
 | chat.z.ai | GLM-5.3 |
