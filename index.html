@@ -71,6 +71,18 @@
         z-index: 2;
     }
 </style>
+<body>
+<script>
+    const fit = () => {
+        const n = document.querySelectorAll("a").length, s = getComputedStyle(document.body), p = parseFloat(s.paddingLeft), g = parseFloat(s.gap), w = document.body.clientWidth - p * 2, h = innerHeight - p * 2;
+        let c = 1, z = 0;
+        for (let i = 1; i <= n; i++) {const r = Math.ceil(n / i), y = Math.min((w - g * (i - 1)) / i, (h - g * (r - 1)) / r); if (y > z || Math.abs(y - z) < .01 && i > c) c = i, z = y}
+        document.body.style.cssText = `grid-template-columns:repeat(${c},${z | 0}px);grid-auto-rows:${z | 0}px`;
+    };
+    const ro = new ResizeObserver(fit); ro.observe(document.body);
+    new MutationObserver(fit).observe(document.body, {childList: true});
+</script>
+
 <a href="https://www.meta.ai" data-intelligence="48" data-model="Muse Spark 1.3"><img src="icons/meta.svg"></a>
 <a href="https://chat.qwen.ai" data-intelligence="45" data-model="Qwen3.8 Max"><img src="icons/qwen.svg"></a>
 <a href="https://chat.z.ai" data-intelligence="45" data-model="GLM-5.3"><img src="icons/zai.svg"></a>
@@ -78,25 +90,8 @@
 <a href="https://aistudio.tencent.ai" data-intelligence="43" data-model="Hy4 preview"><img src="icons/tencent.svg"></a>
 <a href="https://chat.deepseek.com" data-intelligence="40" data-model="DeepSeek V4.1 Flash"><img src="icons/deepseek.svg"></a>
 <a href="https://claude.ai/new" data-intelligence="38" data-model="Claude Sonnet 5"><img src="icons/claude.svg"></a>
-<a href="https://chatgpt.com" data-intelligence="38" data-model="GPT-5.6 Luna"><img src="icons/openai.svg"></a>
 <a href="https://gemini.google.com/app" data-intelligence="34" data-model="Gemini 3.6 Flash"><img src="icons/gemini.svg"></a>
 <a href="https://chat.motiftech.io/chat" data-intelligence="34" data-model="Motif 3"><img src="icons/motif.svg"></a>
-<a href="https://www.kimi.ai" data-intelligence="31" data-model="K2.6"><img src="icons/kimi.svg"></a>
-<a href="https://agent.minimax.io" data-intelligence="30" data-model="MiniMax-M3"><img src="icons/minimax.svg"></a>
-<script>
-    const fit = () => {
-        const n = document.querySelectorAll("a"), s = getComputedStyle(document.body), g = parseFloat(s.gap), w = document.body.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight), h = innerHeight - parseFloat(s.paddingTop) - parseFloat(s.paddingBottom);
-        let columns = 1, size = 0;
-        for (let c = 1; c <= n.length; c++) {const rows = Math.ceil(n.length / c), next = Math.min((w - g * (c - 1)) / c, (h - g * (rows - 1)) / rows); if (next > size || Math.abs(next - size) < .01 && c > columns) {columns = c; size = next}}
-        size = Math.floor(size);
-        document.body.style.gridTemplateColumns = `repeat(${columns},${size}px)`;
-        document.body.style.gridAutoRows = `${size}px`;
-    };
-    new MutationObserver(fit).observe(document.body, {childList: true});
-    let fitPending = 0;
-    addEventListener("resize", () => {
-        if (fitPending) return;
-        fitPending = requestAnimationFrame(() => {fitPending = 0; fit()});
-    });
-    fit();
-</script>
+<a href="https://chatgpt.com" data-intelligence="30" data-model="GPT-6 Luna Medium"><img src="icons/openai.svg"></a>
+<a href="https://agent.minimax.io" data-intelligence="29" data-model="MiniMax-M3"><img src="icons/minimax.svg"></a>
+<a href="https://www.kimi.ai" data-intelligence="27" data-model="K2.6"><img src="icons/kimi.svg"></a>
