@@ -28,4 +28,4 @@
 | aistudio.tencent.ai | Hy4 preview |
 | chat.deepseek.com | DeepSeek V4.1 Flash |
 | chat.motiftech.io | Motif 3 |
-| agent.minimax.io | MiniMax-M3 |
+| agent.minimax.io | M3.1-Flash-Preview |
