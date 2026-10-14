@@ -17,13 +17,13 @@
 
 | website | best model |
 |---|---|
-| chatgpt.com | GPT-5.6 Luna |
+| chatgpt.com | GPT-6 Luna |
 | claude.ai | Claude Sonnet 5 |
 | meta.ai | Muse Spark 1.3 |
 | chat.together.ai | Kimi K3 |
 | kimi.ai | K2.6 |
 | chat.z.ai | GLM-5.3 |
-| gemini.google.com | Gemini 3.6 Flash |
+| gemini.google.com | Gemini 3 |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
 | chat.deepseek.com | DeepSeek V4.1 Flash |
