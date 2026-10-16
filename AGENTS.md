@@ -1,5 +1,4 @@
 # Pass Criteria
-
 | criterion | requirement | pass when |
 |---|---|---|
 | autoscale | grid adapts to viewport | all cards visible at any viewport size, zero scroll h or v, updates live on resize |
@@ -12,9 +11,7 @@
 | ordering | score sort | data-score non-increasing down the list after any edit |
 | style | visual baseline | dark theme, rounded cards, glass chips w/ white text, as in current file |
 | stack | zero-dep vanilla | single self-contained index.html, no framework/build/CDN, icons/* only external |
-
 # Mapping
-
 | website | best model |
 |---|---|
 | chatgpt.com | GPT-6 Luna |
@@ -23,9 +20,7 @@
 | chat.together.ai | Kimi K3 |
 | kimi.ai | K2.6 |
 | chat.z.ai | GLM-5.3 |
-| gemini.google.com | Gemini 3.5 Flash-Lite |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
 | chat.deepseek.com | DeepSeek V4.1 Flash |
-| chat.motiftech.io | Motif 3 |
 | agent.minimax.io | M3.1-Flash-Preview |
