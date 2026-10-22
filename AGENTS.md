@@ -17,10 +17,11 @@
 | chatgpt.com | GPT-6 Luna |
 | claude.ai | Sonnet 5.5 |
 | meta.ai | Muse Spark 1.1 |
-| chat.together.ai | Kimi K3 |
+| chat.together.ai | GLM-5.3 |
 | kimi.ai | K2.6 |
 | chat.z.ai | GLM-5.3 |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
-| chat.deepseek.com | DeepSeek V4.1 Flash |
-| agent.minimax.io | M3.1-Flash-Preview |
+| chat.deepseek.com | DeepSeek V4.1 Flash 1017 |
+| chat.mistral.ai | GLM-5.3 |
+| agent.minimax.io | M3.1 Flash |
