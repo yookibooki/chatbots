@@ -22,6 +22,6 @@
 | chat.z.ai | GLM-5.3 |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
-| chat.deepseek.com | DeepSeek V4.1 Flash 1017 |
+| chat.deepseek.com | DeepSeek V4.1 |
 | chat.mistral.ai | GLM-5.3 |
 | agent.minimax.io | M3.1 Flash |
