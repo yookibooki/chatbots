@@ -18,7 +18,6 @@
 | claude.ai | Sonnet 5.5 |
 | meta.ai | Muse Spark 1.1 |
 | chat.together.ai | GLM-5.3 |
-| kimi.ai | K2.6 |
 | chat.z.ai | GLM-5.3 |
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
