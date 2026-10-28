@@ -22,6 +22,7 @@
 | chat.qwen.ai | Qwen3.8 Max |
 | aistudio.tencent.ai | Hy4 preview |
 | chat.deepseek.com | DeepSeek V4.1 |
+| chat.stepfun.com | Step 5 Preview |
 | chat.mistral.ai | GLM-5.3 |
 | agent.minimax.io | M3.1 Flash |
 | chat.ant-ling.com | Ling-3.1-flash |
