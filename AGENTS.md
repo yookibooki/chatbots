@@ -24,4 +24,5 @@
 | chat.deepseek.com | DeepSeek V4.1 |
 | chat.mistral.ai | GLM-5.3 |
 | agent.minimax.io | M3.1 Flash |
+| chat.ant-ling.com | Ling-3.1-flash |
 | longcat.ai | LongCat-2.5 Preview |
