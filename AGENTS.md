@@ -15,12 +15,12 @@
 | website | best model |
 |---|---|
 | chatgpt.com | GPT-6 Luna |
-| claude.ai | Haiku 5.5 |
+| claude.ai | Sonnet 5.5 High |
 | meta.ai | Muse Spark 1.1 |
 | chat.together.ai | GLM-5.3 |
 | chat.z.ai | GLM-5.3 |
 | chat.qwen.ai | Qwen3.8 Max |
-| aistudio.tencent.ai | Hy4 preview |
+| aistudio.tencent.ai | Hy4 |
 | chat.deepseek.com | DeepSeek V4.1 |
 | chat.stepfun.com | Step 5 Preview |
 | chat.mistral.ai | GLM-5.3 |
