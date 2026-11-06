@@ -16,7 +16,7 @@
 |---|---|
 | chatgpt.com | GPT-6 Luna |
 | claude.ai | Sonnet 5.5 High |
-| meta.ai | Muse Spark 1.1 |
+| meta.ai | Muse Spark 1.3 |
 | chat.together.ai | GLM-5.3 |
 | chat.z.ai | GLM-5.3 |
 | chat.qwen.ai | Qwen3.8 Max |
@@ -25,5 +25,5 @@
 | chat.stepfun.com | Step 5 Preview |
 | chat.mistral.ai | GLM-5.3 |
 | agent.minimax.io | M3.1 Flash |
-| chat.ant-ling.com | Ling-3.1-flash |
-| longcat.ai | LongCat-2.5 Preview |
+| chat.ant-ling.com | Ling-3.2-flash |
+| longcat.ai | LongCat-2.5 |
