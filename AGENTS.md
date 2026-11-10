@@ -11,11 +11,14 @@
 | ordering | score sort | data-score non-increasing down the list after any edit |
 | style | visual baseline | dark theme, rounded cards, glass chips w/ white text, as in current file |
 | stack | zero-dep vanilla | single self-contained index.html, no framework/build/CDN, icons/* only external |
+
+NOTE: Claude card is hidden during peak hours, Monday-Friday 13:00-19:00 UTC.
+
 # Mapping
 | website | best model |
 |---|---|
 | chatgpt.com | GPT-6 Luna |
-| claude.ai | Sonnet 5.5 High |
+| claude.ai | Sonnet 5.5 |
 | meta.ai | Muse Spark 1.3 |
 | chat.together.ai | GLM-5.3 |
 | chat.z.ai | GLM-5.3 |
@@ -27,3 +30,4 @@
 | agent.minimax.io | M3.1 Flash |
 | chat.ant-ling.com | Ling-3.2-flash |
 | longcat.ai | LongCat-2.5 |
+| chat.inceptionlabs.ai | Mercury 3 |
